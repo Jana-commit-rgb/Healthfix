@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HealthFix Group</title>
+    
+    <!-- مكتبات Tailwind CSS + FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -14,283 +16,219 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
         body { font-family: 'Cairo', sans-serif; }
+        
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            color: white;
+            font-size: 22px;
+            transition: all 0.3s ease;
+        }
+        .social-btn:hover { transform: translateY(-4px); }
+        .facebook { background-color: #1877f2; }
+        .tiktok { background-color: #000000; }
+        .instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
     </style>
 </head>
-<body class="bg-slate-200 h-screen flex flex-col overflow-hidden">
+<body class="bg-slate-200 min-h-screen flex flex-col">
 
-    <!-- Auth Screen -->
-    <div id="authScreen" class="fixed inset-0 bg-[#1c334e]/70 flex items-center justify-center p-4 z-50 overflow-y-auto">
-        <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-lg my-auto border border-slate-200">
+    <!-- Top Navigation Bar -->
+    <nav class="bg-[#1c334e] text-white px-6 py-3 flex justify-between items-center shadow-md sticky top-0 z-40">
+        <div class="flex items-center space-x-3 space-x-reverse cursor-pointer" onclick="showSection('homeSection')">
+            <i class="fa-solid fa-stethoscope text-2xl text-[#98afcc]"></i>
+            <div>
+                <span class="font-bold text-lg block leading-tight">HealthFix Group</span>
+                <span class="text-xs text-slate-300">Medicare Team</span>
+            </div>
+        </div>
+        <div class="flex space-x-2 space-x-reverse text-sm font-semibold">
+            <button onclick="showSection('homeSection')" class="px-4 py-2 rounded-lg hover:bg-[#2a486c] transition"><i class="fa-solid fa-house ml-1.5"></i>الرئيسية</button>
+            <button onclick="openAuthModal('doctor')" class="px-4 py-2 rounded-lg hover:bg-[#2a486c] transition"><i class="fa-solid fa-user-md ml-1.5"></i>الطبيب</button>
+            <button onclick="openAuthModal('patient')" class="px-4 py-2 rounded-lg hover:bg-[#2a486c] transition"><i class="fa-solid fa-hospital-user ml-1.5"></i>المريض</button>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: HOME PAGE (الرئيسية) -->
+    <div id="homeSection" class="flex-1 max-w-6xl w-11/12 mx-auto my-8 bg-white p-8 rounded-2xl shadow-lg border border-slate-200">
+        <div class="text-center md:text-right">
+            <h1 class="text-3xl font-bold text-[#1c334e] mb-2">HealthFix — لجعل الرعاية الصحية أفضل.</h1>
+            <p class="text-lg font-bold text-[#527196] mb-4">رعاية أذكى. رحلات أسهل. تجارب أفضل.</p>
+            <p class="text-slate-600 leading-relaxed text-base mb-6">
+                تم تصميم HealthFix لجعله يسهل كل خطوة في تجربة المستشفى لتكون أبسط وأوضح وأكثر راحة. من العثور على المعلومات الصحيحة إلى البقاء منظمًا طوال زيارة المستشفى، نجمع الأدوات المفيدة معًا في مكان واحد حتى يتمكن المرضى وعائلاتهم من التركيز على ما يهم أكثر — التعافي.
+            </p>
+        </div>
+
+        <img src="https://t4.ftcdn.net/jpg/03/86/71/77/360_F_386717788_8hJZOSBvL2legpxA7WKLYj84ic0gBvK9.jpg" class="w-full max-w-2xl mx-auto rounded-xl shadow-md my-6" alt="Healthcare">
+
+        <div class="text-center md:text-right mt-6">
+            <h2 class="text-2xl font-bold text-[#1c334e] mb-3">🎯 هدفنا</h2>
+            <p class="text-slate-600 leading-relaxed text-base">
+                هدفنا هو تحسين تجربة المستشفى من خلال جعل الرعاية الصحية أكثر سهولة وتنظيمًا وملاءمة للمريض. يساعد HealthFix في تقليل الارتباك والتوتر غير الضروري من خلال تزويد المرضى والعائلات بمعلومات مفيدة وأدوات رقمية بسيطة. نحن نؤمن بأنه لا ينبغي للتكنولوجيا أن تجعل الرعاية الصحية أكثر تعقيدًا — بل ينبغي لها أن تجعل فهمها والتنقل فيها أسهل.
+            </p>
+        </div>
+
+        <!-- أزرار الدخول السريع -->
+        <div class="flex flex-col sm:flex-row justify-center gap-4 my-8">
+            <button onclick="openAuthModal('doctor')" class="bg-[#1c334e] text-white px-8 py-3 rounded-xl font-bold hover:bg-[#15273c] transition shadow-md"><i class="fa-solid fa-user-md ml-2"></i>دخول بوابة الطبيب</button>
+            <button onclick="openAuthModal('patient')" class="bg-[#2a486c] text-white px-8 py-3 rounded-xl font-bold hover:bg-[#1c334e] transition shadow-md"><i class="fa-solid fa-hospital-user ml-2"></i>دخول بوابة المريض</button>
+        </div>
+
+        <!-- قسم السوشيال ميديا -->
+        <div class="border-t border-slate-200 pt-6 mt-8 text-center">
+            <h3 class="font-bold text-[#1c334e] mb-4">تابعنا على منصات التواصل الاجتماعي</h3>
+            <div class="flex justify-center gap-4">
+                <a href="https://www.facebook.com/share/1Aac74KSSM/?mibextid=wwXIfr" target="_blank" class="social-btn facebook" title="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@healthfix89?_r=1&_t=ZS-98nOqlDuz3Z" target="_blank" class="social-btn tiktok" title="تيك توك"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/heal.thfix1?igsh=MWRpYWptdjJzajZjZA==" target="_blank" class="social-btn instagram" title="إنستجرام"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUTH MODAL (نافذة التسجيل) -->
+    <div id="authModal" class="fixed inset-0 bg-[#1c334e]/70 flex items-center justify-center p-4 z-50 hidden overflow-y-auto">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-lg my-auto relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+            
             <div class="text-center mb-6">
                 <i class="fa-solid fa-hospital-user text-4xl text-[#1c334e] mb-2"></i>
-                <h1 class="text-2xl font-bold text-[#1c334e]">HealthFix Group</h1>
-                <p class="text-xs text-[#527196] font-semibold mt-1">تطوير بواسطة: Medicare Team</p>
+                <h2 class="text-2xl font-bold text-[#1c334e]">تسجيل الدخول للنظام</h2>
             </div>
             
             <div class="flex space-x-2 space-x-reverse mb-6">
-                <button onclick="toggleAuth('doctor')" id="btnDocTab" class="flex-1 py-2.5 rounded-xl bg-[#1c334e] text-white font-bold transition shadow hover:bg-[#15273c]">تسجيل طبيب</button>
-                <button onclick="toggleAuth('patient')" id="btnPatTab" class="flex-1 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-bold transition hover:bg-slate-300">تسجيل مريض</button>
+                <button onclick="toggleAuthRole('doctor')" id="btnDocTab" class="flex-1 py-2.5 rounded-xl bg-[#1c334e] text-white font-bold transition">طبيب</button>
+                <button onclick="toggleAuthRole('patient')" id="btnPatTab" class="flex-1 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-bold transition">مريض</button>
             </div>
 
             <!-- Doctor Form -->
             <form id="docForm" onsubmit="loginDoctor(event)" class="space-y-4">
                 <div>
                     <label class="block text-sm font-semibold mb-1 text-slate-700">الاسم الكامل:</label>
-                    <input type="text" id="docName" required class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-[#1c334e] focus:outline-none" placeholder="أدخل اسم الطبيب">
+                    <input type="text" id="docName" required class="w-full border p-2.5 rounded-lg text-sm" placeholder="د. أحمد محمود">
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-sm font-semibold mb-1 text-slate-700">المؤهل العلمي:</label>
-                        <input type="text" id="docDegree" required class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-[#1c334e] focus:outline-none" placeholder="التخصص / الدرجة العلمية">
+                        <label class="block text-sm font-semibold mb-1 text-slate-700">التخصص:</label>
+                        <input type="text" id="docDegree" required class="w-full border p-2.5 rounded-lg text-sm" placeholder="استشاري باطنة">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold mb-1 text-slate-700">الرقم القومي (14 رقم):</label>
-                        <input type="text" id="docNationalId" maxlength="14" required class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-[#1c334e] focus:outline-none" placeholder="أدخل الرقم القومي">
-                    </div>
-                    <div>
-                        <div>
-                            <label class="block text-sm font-semibold mb-1 text-slate-700">emailال</label>
-                            <input type="email" id="docNationalId" maxlength="14" required class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-[#1c334e] focus:outline-none" placeholder="أدخل  email">
-                        </div>                        
+                        <label class="block text-sm font-semibold mb-1 text-slate-700">الرقم القومي:</label>
+                        <input type="text" id="docNationalId" maxlength="14" required class="w-full border p-2.5 rounded-lg text-sm" placeholder="14 رقم">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold mb-1 text-[#1c334e] font-bold"><i class="fa-solid fa-hospital ml-1"></i>اختر المستشفى:</label>
-                    <select id="docHospital" class="w-full border-2 border-[#98afcc] p-2.5 rounded-lg focus:ring-2 focus:ring-[#1c334e] bg-[#98afcc]/20 font-semibold text-slate-800">
+                    <label class="block text-sm font-semibold mb-1 text-slate-700">المستشفى:</label>
+                    <select id="docHospital" class="w-full border p-2.5 rounded-lg text-sm bg-slate-50">
                         <option>المستشفى الرئيسي</option>
                         <option>مستشفى المركز الطبي</option>
                         <option>مستشفى التخصصي</option>
                     </select>
                 </div>
-                <button type="submit" class="w-full bg-[#1c334e] text-white py-3 rounded-xl font-bold hover:bg-[#15273c] transition shadow">دخول لوحة تحكم الطبيب</button>
+                <button type="submit" class="w-full bg-[#1c334e] text-white py-3 rounded-xl font-bold hover:bg-[#15273c] transition">دخول لوحة التحكم</button>
             </form>
 
             <!-- Patient Form -->
             <form id="patForm" onsubmit="loginPatient(event)" class="space-y-4 hidden">
                 <div>
                     <label class="block text-sm font-semibold mb-1 text-slate-700">الاسم الكامل:</label>
-                    <input type="text" id="patName" required class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-[#98afcc] focus:outline-none" placeholder="أدخل اسم المريض">
+                    <input type="text" id="patName" required class="w-full border p-2.5 rounded-lg text-sm" placeholder="اسم المريض الثلاثي">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold mb-1 text-slate-700">السن:</label>
-                    <input type="number" id="patAge" required class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-[#98afcc] focus:outline-none" placeholder="السن">
+                    <input type="number" id="patAge" required class="w-full border p-2.5 rounded-lg text-sm" placeholder="العمر">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold mb-1 text-slate-700">ماذا تشعر الآن؟ (صف حالتك والأعراض):</label>
-                    <textarea id="patInitialSymptoms" rows="3" required class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-[#98afcc] focus:outline-none" placeholder="اكتب الأعراض التي تعاني منها..."></textarea>
+                    <label class="block text-sm font-semibold mb-1 text-slate-700">الأعراض الحالية:</label>
+                    <textarea id="patInitialSymptoms" rows="2" required class="w-full border p-2.5 rounded-lg text-sm" placeholder="صف ما تشعر به..."></textarea>
                 </div>
-                <button type="submit" class="w-full bg-[#1c334e] text-white py-3 rounded-xl font-bold hover:bg-[#15273c] transition shadow">بدء الاستشارة ومتابعة العلاج</button>
+                <button type="submit" class="w-full bg-[#1c334e] text-white py-3 rounded-xl font-bold hover:bg-[#15273c] transition">بدء الاستشارة</button>
             </form>
         </div>
     </div>
 
-    <!-- Main Application -->
-    <div id="mainApp" class="hidden flex-1 flex flex-col h-full">
-        <!-- Top Header -->
-        <header class="bg-[#1c334e] text-white px-6 py-3 flex justify-between items-center shadow shrink-0">
+    <!-- SECTION 2: SYSTEM WORKSPACE (نظام الطبيب والمريض) -->
+    <div id="appSystemSection" class="flex-1 flex flex-col hidden h-screen overflow-hidden">
+        <!-- Top App User Bar -->
+        <div class="bg-[#15273c] text-white px-6 py-2 flex justify-between items-center text-xs shrink-0">
+            <div id="userWelcome" class="font-semibold"></div>
             <div class="flex items-center space-x-3 space-x-reverse">
-                <i class="fa-solid fa-stethoscope text-xl text-[#98afcc]"></i>
-                <div>
-                    <span class="font-bold text-lg">HealthFix Group</span>
-                    <span class="text-xs text-slate-300 block">Medicare Team</span>
-                </div>
+                <span id="hospitalBadge" class="bg-[#2a486c] px-3 py-0.5 rounded-full"></span>
+                <button onclick="logoutApp()" class="bg-rose-700 hover:bg-rose-800 px-3 py-1 rounded text-white font-bold"><i class="fa-solid fa-sign-out-alt ml-1"></i>خروج</button>
             </div>
-            <div class="flex items-center space-x-4 space-x-reverse">
-                <div id="userWelcome" class="font-semibold text-sm text-slate-200"></div>
-                <div id="hospitalBadge" class="bg-[#2a486c] text-white text-xs px-3 py-1 rounded-full border border-[#98afcc]/40 font-semibold"></div>
-                <button onclick="logout()" class="bg-rose-700 hover:bg-rose-800 px-4 py-1.5 rounded-lg text-sm font-semibold transition"><i class="fa-solid fa-right-from-bracket ml-1"></i>خروج</button>
-            </div>
-        </header>
+        </div>
 
         <!-- Doctor Workspace -->
-        <div id="doctorWorkspace" class="flex-1 flex overflow-hidden">
-            <div class="w-80 bg-white border-l border-slate-200 flex flex-col shrink-0">
-                <div class="p-4 bg-slate-100 border-b flex justify-between items-center">
-                    <span id="sidebarTitle" class="font-bold text-[#1c334e] text-sm">قائمة المرضى والحالات</span>
-                    <span id="badgeCount" class="bg-[#98afcc]/30 text-[#1c334e] text-xs px-2 py-0.5 rounded-full font-bold">1</span>
-                </div>
-                <div id="leftSidebarList" class="flex-1 overflow-y-auto divide-y divide-slate-100"></div>
+        <div id="doctorWorkspace" class="flex-1 flex overflow-hidden hidden">
+            <div class="w-72 bg-white border-l flex flex-col shrink-0">
+                <div class="p-3 bg-slate-100 border-b font-bold text-sm text-[#1c334e]">قائمة الحالات</div>
+                <div id="leftSidebarList" class="flex-1 overflow-y-auto"></div>
             </div>
-
-            <div class="flex-1 bg-slate-100 flex flex-col h-full overflow-hidden">
-                <div class="bg-white border-b px-6 py-2 flex space-x-4 space-x-reverse shrink-0 overflow-x-auto">
-                    <button onclick="switchDoctorTab('chat')" id="docTabChatBtn" class="px-4 py-2 text-sm font-bold border-b-2 border-[#1c334e] text-[#1c334e] transition flex items-center shrink-0"><i class="fa-solid fa-comments ml-2"></i>الشات المباشر</button>
-                    <button onclick="switchDoctorTab('reports')" id="docTabReportsBtn" class="px-4 py-2 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center shrink-0"><i class="fa-solid fa-file-medical ml-2"></i>التقارير والإرشادات</button>
-                    <button onclick="switchDoctorTab('ratings')" id="docTabRatingsBtn" class="px-4 py-2 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center shrink-0"><i class="fa-solid fa-star ml-2"></i>تقييمات المرضى</button>
-                    <button onclick="switchDoctorTab('requests')" id="docTabRequestsBtn" class="px-4 py-2 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center shrink-0"><i class="fa-solid fa-clipboard-list ml-2"></i>طلبات المرضى</button>
-                    <button onclick="switchDoctorTab('peakHours')" id="docTabPeakBtn" class="px-4 py-2 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center shrink-0"><i class="fa-solid fa-clock ml-2"></i>فترات الذروة</button>
+            <div class="flex-1 bg-slate-100 flex flex-col overflow-hidden">
+                <div class="bg-white border-b px-4 py-2 flex space-x-3 space-x-reverse overflow-x-auto shrink-0 text-sm font-bold text-slate-600">
+                    <button onclick="switchDoctorTab('chat')" id="docTabChatBtn" class="px-3 py-1.5 border-b-2 border-[#1c334e] text-[#1c334e]">الشات المباشر</button>
+                    <button onclick="switchDoctorTab('reports')" id="docTabReportsBtn" class="px-3 py-1.5">التقارير والإرشادات</button>
+                    <button onclick="switchDoctorTab('ratings')" id="docTabRatingsBtn" class="px-3 py-1.5">تقييمات المرضى</button>
                 </div>
-
-                <!-- Doctor Tab 1: Chat View -->
-                <div id="docSectionChat" class="flex-1 flex flex-col h-full overflow-hidden">
-                    <div id="chatMessagesContainer" class="flex-1 p-6 overflow-y-auto space-y-3 bg-[#98afcc]/20"></div>
-                    <div class="bg-white px-4 py-3 border-t border-slate-200 flex items-center space-x-2 space-x-reverse shrink-0">
-                        <input type="text" id="msgInput" onkeypress="if(event.key==='Enter') sendMessage()" placeholder="اكتب رسالتك الطبية..." class="flex-1 border border-slate-300 rounded-full px-5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1c334e] bg-slate-50">
-                        <button onclick="sendMessage()" class="bg-[#1c334e] text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-[#15273c] transition shadow"><i class="fa-solid fa-paper-plane"></i></button>
+                <div id="docSectionChat" class="flex-1 flex flex-col overflow-hidden">
+                    <div id="chatMessagesContainer" class="flex-1 p-4 overflow-y-auto space-y-2 bg-[#98afcc]/10"></div>
+                    <div class="bg-white p-3 border-t flex space-x-2 space-x-reverse shrink-0">
+                        <input type="text" id="msgInput" onkeypress="if(event.key==='Enter') sendMessage()" class="flex-1 border rounded-full px-4 text-sm" placeholder="اكتب رسالتك...">
+                        <button onclick="sendMessage()" class="bg-[#1c334e] text-white w-9 h-9 rounded-full flex items-center justify-center"><i class="fa-solid fa-paper-plane"></i></button>
                     </div>
                 </div>
-
-                <!-- Doctor Tab 2: Medical Reports -->
                 <div id="docSectionReports" class="flex-1 p-6 overflow-y-auto hidden">
-                    <div class="max-w-3xl mx-auto space-y-6">
-                        <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200">
-                            <h3 class="font-bold text-[#1c334e] text-lg mb-4 flex items-center"><i class="fa-solid fa-notes-medical ml-2"></i>كتابة تقرير وإرشادات للمريض</h3>
-                            <div class="space-y-4">
-                                <div>
-                                 <label class="block text-sm font-semibold mb-1 text-slate-700">التشخيص الطبي:</label>
-                                 <input type="text" id="reportDiagnosis" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm" placeholder="اكتب التشخيص الطبي...">
-                                </div>
-                                <div>
-                                 <label class="block text-sm font-semibold mb-1 text-slate-700">الأدوية والعلاج:</label>
-                                 <textarea id="reportMedicines" rows="2" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm" placeholder="اكتب اسم الدواء والجرعة..."></textarea>
-                                </div>
-                                <div>
-                                 <label class="block text-sm font-semibold mb-1 text-slate-700">الإرشادات والتعليمات الطبية:</label>
-                                 <textarea id="reportInstructions" rows="3" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm" placeholder="اكتب الإرشادات الموجهة للمريض..."></textarea>
-                                </div>
-                                <button onclick="saveMedicalReport()" class="bg-[#1c334e] text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-[#15273c] transition shadow">إرسال التقرير والإرشادات للمريض</button>
-                            </div>
-                        </div>
+                    <div class="max-w-xl mx-auto bg-white p-6 rounded-xl border space-y-3">
+                        <h3 class="font-bold text-[#1c334e]">كتابة تقرير للمريض</h3>
+                        <input type="text" id="reportDiagnosis" class="w-full border p-2 rounded text-sm" placeholder="التشخيص...">
+                        <textarea id="reportMedicines" rows="2" class="w-full border p-2 rounded text-sm" placeholder="الأدوية والعلاج..."></textarea>
+                        <textarea id="reportInstructions" rows="2" class="w-full border p-2 rounded text-sm" placeholder="الإرشادات..."></textarea>
+                        <button onclick="saveMedicalReport()" class="bg-[#1c334e] text-white px-4 py-2 rounded-lg text-sm font-bold">إرسال التتقرير</button>
                     </div>
                 </div>
-
-                <!-- Doctor Tab 3: Ratings View -->
                 <div id="docSectionRatings" class="flex-1 p-6 overflow-y-auto hidden">
-                    <div class="max-w-3xl mx-auto space-y-4">
-                        <h3 class="font-bold text-[#1c334e] text-lg mb-2"><i class="fa-solid fa-star ml-2 text-amber-500"></i>تقييمات وآراء المرضى</h3>
-                        <div id="doctorRatingsList" class="space-y-3"></div>
-                    </div>
-                </div>
-
-                <!-- Doctor Tab 4: Patient Requests -->
-                <div id="docSectionRequests" class="flex-1 p-6 overflow-y-auto hidden">
-                    <div class="max-w-3xl mx-auto space-y-4">
-                        <h3 class="font-bold text-[#1c334e] text-lg mb-2"><i class="fa-solid fa-user-clock ml-2"></i>طلبات الكشف المقدمة</h3>
-                        <div id="patientRequestsContainer" class="space-y-3"></div>
-                    </div>
-                </div>
-
-                <!-- Doctor Tab 5: Peak Hours -->
-                <div id="docSectionPeakHours" class="flex-1 p-6 overflow-y-auto hidden">
-                    <div class="max-w-3xl mx-auto space-y-4">
-                        <h3 class="font-bold text-[#1c334e] text-lg mb-2"><i class="fa-solid fa-chart-line ml-2"></i>فترات الذروة وازداحام المستشفيات</h3>
-                        <div id="hospitalsPeakContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-                    </div>
+                    <div id="doctorRatingsList" class="max-w-xl mx-auto space-y-2"></div>
                 </div>
             </div>
         </div>
 
         <!-- Patient Workspace -->
-        <div id="patientWorkspace" class="hidden flex-1 bg-slate-100 flex flex-col h-full overflow-hidden">
-            <div class="bg-white border-b px-6 py-2 flex space-x-4 space-x-reverse shrink-0 overflow-x-auto">
-                <button onclick="switchPatientTab('doctorsList')" id="patTabDocsBtn" class="px-4 py-2 text-sm font-bold border-b-2 border-[#1c334e] text-[#1c334e] transition flex items-center shrink-0"><i class="fa-solid fa-user-md ml-2"></i>دليل الأطباء</button>
-                <button onclick="switchPatientTab('chat')" id="patTabChatBtn" class="px-4 py-2 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center shrink-0"><i class="fa-solid fa-comments ml-2"></i>محادثة الطبيب</button>
-                <button onclick="switchPatientTab('instructions')" id="patTabInstBtn" class="px-4 py-2 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center shrink-0"><i class="fa-solid fa-receipt ml-2"></i>إرشادات الطبيب</button>
-                <button onclick="switchPatientTab('rating')" id="patTabRatingBtn" class="px-4 py-2 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center shrink-0"><i class="fa-solid fa-star ml-2"></i>تقييم الخدمة</button>
-                <button onclick="switchPatientTab('pharmacy')" id="patTabPharmBtn" class="px-4 py-2 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center shrink-0"><i class="fa-solid fa-pills ml-2"></i>الصيدلية</button>
-                <button onclick="switchPatientTab('transport')" id="patTabTransBtn" class="px-4 py-2 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center shrink-0"><i class="fa-solid fa-ambulance ml-2"></i>المواصلات بالإسعاف</button>
+        <div id="patientWorkspace" class="flex-1 flex flex-col overflow-hidden hidden">
+            <div class="bg-white border-b px-4 py-2 flex space-x-3 space-x-reverse overflow-x-auto shrink-0 text-sm font-bold text-slate-600">
+                <button onclick="switchPatientTab('chat')" id="patTabChatBtn" class="px-3 py-1.5 border-b-2 border-[#1c334e] text-[#1c334e]">المحادثة</button>
+                <button onclick="switchPatientTab('instructions')" id="patTabInstBtn" class="px-3 py-1.5">إرشادات الطبيب</button>
+                <button onclick="switchPatientTab('rating')" id="patTabRatingBtn" class="px-3 py-1.5">تقييم الخدمة</button>
             </div>
-
-            <!-- Patient Tab 1: Doctors Directory -->
-            <div id="patSectionDoctorsList" class="flex-1 p-6 overflow-y-auto">
-                <div class="max-w-4xl mx-auto space-y-4">
-                    <h3 class="font-bold text-[#1c334e] text-lg mb-2"><i class="fa-solid fa-user-md ml-2"></i>اختر طبيباً لبدء الاستشارة</h3>
-                    <div id="doctorsCardsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            <div id="patSectionChat" class="flex-1 flex flex-col overflow-hidden">
+                <div id="patChatMessagesContainer" class="flex-1 p-4 overflow-y-auto space-y-2 bg-[#98afcc]/10"></div>
+                <div class="bg-white p-3 border-t flex space-x-2 space-x-reverse shrink-0">
+                    <input type="text" id="patMsgInput" onkeypress="if(event.key==='Enter') sendPatMessage()" class="flex-1 border rounded-full px-4 text-sm" placeholder="اكتب استفسارك...">
+                    <button onclick="sendPatMessage()" class="bg-[#1c334e] text-white w-9 h-9 rounded-full flex items-center justify-center"><i class="fa-solid fa-paper-plane"></i></button>
                 </div>
             </div>
-
-            <!-- Patient Tab 2: Chat View -->
-            <div id="patSectionChat" class="flex-1 flex flex-col h-full overflow-hidden hidden">
-                <div id="patChatMessagesContainer" class="flex-1 p-6 overflow-y-auto space-y-3 bg-[#98afcc]/20"></div>
-                <div class="bg-white px-4 py-3 border-t border-slate-200 flex items-center space-x-2 space-x-reverse shrink-0">
-                    <input type="text" id="patMsgInput" onkeypress="if(event.key==='Enter') sendPatMessage()" placeholder="اكتب استفسارك للطبيب..." class="flex-1 border border-slate-300 rounded-full px-5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1c334e] bg-slate-50">
-                    <button onclick="sendPatMessage()" class="bg-[#1c334e] text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-[#15273c] transition shadow"><i class="fa-solid fa-paper-plane"></i></button>
-                </div>
-            </div>
-
-            <!-- Patient Tab 3: Doctor Instructions -->
             <div id="patSectionInstructions" class="flex-1 p-6 overflow-y-auto hidden">
-                <div class="max-w-3xl mx-auto space-y-4">
-                    <h3 class="font-bold text-[#1c334e] text-lg mb-2"><i class="fa-solid fa-notes-medical ml-2 text-emerald-600"></i>إرشادات الطبيب والوصفة الطبية الأخيرة</h3>
-                    <div id="patientInstructionsDisplay" class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-                        <p class="text-slate-500 text-sm">لم يتم إضافة إرشادات طبية لك حتى الآن.</p>
-                    </div>
-                </div>
+                <div id="patientInstructionsDisplay" class="max-w-xl mx-auto bg-white p-6 rounded-xl border"></div>
             </div>
-
-            <!-- Patient Tab 4: Rating -->
             <div id="patSectionRating" class="flex-1 p-6 overflow-y-auto hidden">
-                <div class="max-w-xl mx-auto bg-white rounded-2xl shadow-sm p-8 border border-slate-200">
-                    <h3 class="font-bold text-[#1c334e] text-xl mb-2 text-center">تقييم الخدمة الطبية والطبيب</h3>
-                    <p class="text-xs text-slate-500 text-center mb-6">شاركنا رأيك لتحسين جودة الرعاية الطبية</p>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-semibold mb-2 text-slate-700">تقييمك للطبيب والخدمة:</label>
-                            <div class="flex space-x-4 space-x-reverse justify-center" id="patientRatingStars">
-                                <button onclick="setPatientRating(1)" class="text-3xl text-slate-300 transition hover:text-amber-400"><i class="fa-solid fa-star"></i></button>
-                                <button onclick="setPatientRating(2)" class="text-3xl text-slate-300 transition hover:text-amber-400"><i class="fa-solid fa-star"></i></button>
-                                <button onclick="setPatientRating(3)" class="text-3xl text-slate-300 transition hover:text-amber-400"><i class="fa-solid fa-star"></i></button>
-                                <button onclick="setPatientRating(4)" class="text-3xl text-slate-300 transition hover:text-amber-400"><i class="fa-solid fa-star"></i></button>
-                                <button onclick="setPatientRating(5)" class="text-3xl text-slate-300 transition hover:text-amber-400"><i class="fa-solid fa-star"></i></button>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold mb-1 text-slate-700">ملاحظات إضافية:</label>
-                            <textarea id="patRatingComment" rows="3" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm" placeholder="اكتب ملاحظاتك..."></textarea>
-                        </div>
-                        <button onclick="submitPatientRating()" class="w-full bg-[#1c334e] text-white py-3 rounded-xl font-bold hover:bg-[#15273c] transition shadow">إرسال التقييم</button>
+                <div class="max-w-md mx-auto bg-white p-6 rounded-xl border space-y-3 text-center">
+                    <h3 class="font-bold text-[#1c334e]">تقييم الخدمة</h3>
+                    <div class="flex justify-center space-x-2 space-x-reverse text-2xl text-amber-400" id="patientRatingStars">
+                        <button onclick="setPatientRating(1)"><i class="fa-solid fa-star"></i></button>
+                        <button onclick="setPatientRating(2)"><i class="fa-solid fa-star"></i></button>
+                        <button onclick="setPatientRating(3)"><i class="fa-solid fa-star"></i></button>
+                        <button onclick="setPatientRating(4)"><i class="fa-solid fa-star"></i></button>
+                        <button onclick="setPatientRating(5)"><i class="fa-solid fa-star"></i></button>
                     </div>
+                    <textarea id="patRatingComment" rows="2" class="w-full border p-2 rounded text-sm" placeholder="ملاحظاتك..."></textarea>
+                    <button onclick="submitPatientRating()" class="bg-[#1c334e] text-white w-full py-2 rounded-lg text-sm font-bold">إرسال</button>
                 </div>
             </div>
-
-            <!-- Patient Tab 5: Pharmacy -->
-            <div id="patSectionPharmacy" class="flex-1 p-6 overflow-y-auto hidden">
-                <div class="max-w-3xl mx-auto space-y-6">
-                    <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200">
-                        <h3 class="font-bold text-[#1c334e] text-lg mb-4 flex items-center"><i class="fa-solid fa-pills ml-2 text-emerald-600"></i>طلب أدوية من الصيدلية</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-semibold mb-1 text-slate-700">البحث عن دواء:</label>
-                                <input type="text" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm" placeholder="أدخل اسم العلاج...">
-                            </div>
-                            <div class="border-2 border-dashed border-slate-300 p-6 text-center rounded-2xl bg-slate-50">
-                                <i class="fa-solid fa-file-medical-prescription text-3xl text-slate-400 mb-2"></i>
-                                <p class="text-xs text-slate-600 font-bold">رفع صورة الروشتة لتجهيز الأدوية إلكترونياً</p>
-                                <input type="file" id="prescriptionInput" class="hidden">
-                                <button onclick="document.getElementById('prescriptionInput').click()" class="mt-3 bg-[#1c334e] text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#15273c]">اختيار صورة الروشتة</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Patient Tab 6: Transport -->
-            <div id="patSectionTransport" class="flex-1 p-6 overflow-y-auto hidden">
-                <div class="max-w-3xl mx-auto space-y-4">
-                    <h3 class="font-bold text-[#1c334e] text-lg mb-2"><i class="fa-solid fa-truck-medical ml-2 text-rose-600"></i>المواصلات الطبية والإسعاف</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
-                            <div>
-                                <h4 class="font-bold text-[#1c334e]">طلب إسعاف طوارئ</h4>
-                                <p class="text-xs text-slate-500 mt-1">للحالات العاجلة والحرجة</p>
-                            </div>
-                            <button onclick="alert('تم إرسال طلب سيارة الإسعاف لموقعك الحقيقي')" class="bg-rose-700 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-rose-800">طلب عاجل</button>
-                        </div>
-                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
-                            <div>
-                                <h4 class="font-bold text-[#1c334e]">حجز مواصلة للمستشفى</h4>
-                                <p class="text-xs text-slate-500 mt-1">سيارة مجهزة للمواعيد والزيارات</p>
-                            </div>
-                            <button onclick="alert('تم فتح تطبيق الحجز')" class="bg-[#1c334e] text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#15273c]">حجز سيارة</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 
-    <!-- JavaScript System Logic & Firebase SDK -->
+    <!-- JavaScript Logic -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyBcq4Vws6U-wnQicE5edzkZ7nwDoAyXMs0",
@@ -299,45 +237,41 @@
             projectId: "healthfix-7990d",
             storageBucket: "healthfix-7990d.firebasestorage.app",
             messagingSenderId: "647206389084",
-            appId: "1:647206389084:web:312ee16c7b7c7f0ba22d99",
-            measurementId: "G-Q8WBE93GHW"
+            appId: "1:647206389084:web:312ee16c7b7c7f0ba22d99"
         };
 
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
         let currentUser = null;
         let activeRoomId = "room_live_chat";
         let patientRatingVal = 0;
 
-        let casesList = [
-            { id: 1, patientName: "حالة مريض (1)", age: 30, symptoms: "أعراض عامة وإرهاق بحاجة للمتابعة.", hospital: "المستشفى الرئيسي" }
-        ];
+        function showSection(secId) {
+            document.getElementById('homeSection').classList.add('hidden');
+            document.getElementById('appSystemSection').classList.add('hidden');
+            document.getElementById(secId).classList.remove('hidden');
+        }
 
-        let doctorsList = [
-            { id: 101, name: "د. أحمد سامي", spec: "استشاري الباطنة والشرايين", rating: "4.9", reviewsCount: 120, hospital: "المستشفى الرئيسي" },
-            { id: 102, name: "د. منى زكي", spec: "أخصائية أطفال وحديثي الولادة", rating: "4.8", reviewsCount: 95, hospital: "مستشفى المركز الطبي" },
-            { id: 103, name: "د. خليل إبراهيم", spec: "استشاري العظام والمفاصل", rating: "4.7", reviewsCount: 84, hospital: "مستشفى التخصصي" }
-        ];
+        function openAuthModal(role) {
+            document.getElementById('authModal').classList.remove('hidden');
+            toggleAuthRole(role);
+        }
 
-        let hospitalsData = [
-            { name: "المستشفى الرئيسي", dept: "قسم الطوارئ والاستقبال", occupancy: "88%", level: "ذروة مرتفعة", time: "06:00 م - 11:00 م", border: "border-rose-200", badge: "bg-rose-100 text-rose-700" },
-            { name: "مستشفى المركز الطبي", dept: "العيادات الخارجية", occupancy: "62%", level: "ذروة متوسطة", time: "10:00 ص - 02:00 ظ", border: "border-amber-200", badge: "bg-amber-100 text-amber-700" },
-            { name: "مستشفى التخصصي", dept: "قسم الأشعة والفحوصات", occupancy: "40%", level: "ذروة منخفضة", time: "08:00 ص - 12:00 ظ", border: "border-emerald-200", badge: "bg-emerald-100 text-emerald-700" }
-        ];
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+        }
 
-        function toggleAuth(role) {
+        function toggleAuthRole(role) {
             if(role === 'doctor') {
                 document.getElementById('docForm').classList.remove('hidden');
                 document.getElementById('patForm').classList.add('hidden');
-                document.getElementById('btnDocTab').className = "flex-1 py-2.5 rounded-xl bg-[#1c334e] text-white font-bold transition shadow";
+                document.getElementById('btnDocTab').className = "flex-1 py-2.5 rounded-xl bg-[#1c334e] text-white font-bold transition";
                 document.getElementById('btnPatTab').className = "flex-1 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-bold transition";
             } else {
                 document.getElementById('docForm').classList.add('hidden');
                 document.getElementById('patForm').classList.remove('hidden');
-                document.getElementById('btnPatTab').className = "flex-1 py-2.5 rounded-xl bg-[#1c334e] text-white font-bold transition shadow";
+                document.getElementById('btnPatTab').className = "flex-1 py-2.5 rounded-xl bg-[#1c334e] text-white font-bold transition";
                 document.getElementById('btnDocTab').className = "flex-1 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-bold transition";
             }
         }
@@ -350,12 +284,13 @@
 
             currentUser = { role: 'doctor', name: name };
             document.getElementById('userWelcome').textContent = `${name} (${degree})`;
-            document.getElementById('hospitalBadge').textContent = `المستشفى: ${hospital}`;
+            document.getElementById('hospitalBadge').textContent = hospital;
 
+            closeAuthModal();
+            showSection('appSystemSection');
             document.getElementById('doctorWorkspace').classList.remove('hidden');
             document.getElementById('patientWorkspace').classList.add('hidden');
-
-            initApp();
+            initSystem();
         }
 
         function loginPatient(event) {
@@ -365,142 +300,27 @@
 
             currentUser = { role: 'patient', name: name };
             document.getElementById('userWelcome').textContent = `المريض: ${name} (${age} سنة)`;
-            document.getElementById('hospitalBadge').textContent = `المستشفى الرئيسي`;
+            document.getElementById('hospitalBadge').textContent = 'المستشفى الرئيسي';
 
-            // إرسال أمر مسح مباشر لقاعدة البيانات ليمحى من شاشة المريض والدكتور فوراً
-            clearAllDataForNewPatient();
-
-            document.getElementById('doctorWorkspace').classList.add('hidden');
-            document.getElementById('patientWorkspace').classList.remove('hidden');
-
-            initApp();
-        }
-
-        function clearAllDataForNewPatient() {
             database.ref('chats/' + activeRoomId).remove();
             database.ref('medical_instructions/' + activeRoomId).remove();
             database.ref('ratings').remove();
+
+            closeAuthModal();
+            showSection('appSystemSection');
+            document.getElementById('doctorWorkspace').classList.add('hidden');
+            document.getElementById('patientWorkspace').classList.remove('hidden');
+            initSystem();
         }
 
-        function initApp() {
-            document.getElementById('authScreen').classList.add('hidden');
-            document.getElementById('mainApp').classList.remove('hidden');
-            
-            if(currentUser.role === 'doctor') {
-                renderSidebar();
-                renderPatientRequests();
-                renderHospitalsPeak();
-                listenForDoctorRatings();
-                switchDoctorTab('chat');
-            } else {
-                renderDoctorsCards();
-                listenForPatientInstructions();
-                switchPatientTab('doctorsList');
-            }
+        function logoutApp() { showSection('homeSection'); }
+
+        function initSystem() {
             listenForMessages();
+            if(currentUser.role === 'doctor') listenForDoctorRatings();
+            else listenForPatientInstructions();
         }
 
-        function logout() { location.reload(); }
-
-        /* --- وظائف الدكتور --- */
-        function renderSidebar() {
-            const sidebarList = document.getElementById('leftSidebarList');
-            sidebarList.innerHTML = '';
-            casesList.forEach(c => {
-                const item = document.createElement('div');
-                item.className = "p-3.5 cursor-pointer bg-slate-100 border-r-4 border-[#1c334e]";
-                item.innerHTML = `<div class="font-bold text-slate-800 text-sm">${c.patientName}</div><div class="text-xs text-slate-500 mt-1">${c.symptoms}</div>`;
-                sidebarList.appendChild(item);
-            });
-        }
-
-        function renderPatientRequests() {
-            const container = document.getElementById('patientRequestsContainer');
-            if(!container) return;
-            container.innerHTML = `
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
-                    <div>
-                        <h4 class="font-bold text-[#1c334e]">محمد علي عبد الله (42 سنة)</h4>
-                        <p class="text-xs text-slate-500 mt-1">الأعراض: آلام شديدة بالمعدة مع ارتفاع حرارة</p>
-                    </div>
-                    <button onclick="switchDoctorTab('chat')" class="bg-[#1c334e] text-white px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-[#15273c]">قبول وبدء الاستشارة</button>
-                </div>`;
-        }
-
-        function renderHospitalsPeak() {
-            const container = document.getElementById('hospitalsPeakContainer');
-            if(!container) return;
-            container.innerHTML = '';
-            hospitalsData.forEach(h => {
-                const card = document.createElement('div');
-                card.className = `bg-white p-5 rounded-2xl border ${h.border} shadow-sm`;
-                card.innerHTML = `
-                    <div class="flex items-center justify-between mb-2">
-                        <h4 class="font-bold text-[#1c334e]">${h.name}</h4>
-                        <span class="${h.badge} text-xs px-2.5 py-1 rounded-full font-bold">${h.level}</span>
-                    </div>
-                    <p class="text-xs text-slate-600 mb-1">${h.dept}</p>
-                    <p class="text-xs text-slate-500">نسبة الإشغال: <strong>${h.occupancy}</strong> | أوقات الذروة: <strong>${h.time}</strong></p>`;
-                container.appendChild(card);
-            });
-        }
-
-        function listenForDoctorRatings() {
-            database.ref('ratings').on('value', (snapshot) => {
-                const container = document.getElementById('doctorRatingsList');
-                if(!container) return;
-                container.innerHTML = '';
-                if(!snapshot.exists()) {
-                    container.innerHTML = `<p class="text-xs text-slate-500">لا توجد تقييمات مسجلة بعد.</p>`;
-                    return;
-                }
-                snapshot.forEach(child => {
-                    const r = child.val();
-                    const card = document.createElement('div');
-                    card.className = "bg-white p-4 rounded-xl border border-slate-200 shadow-sm";
-                    let starsHtml = '';
-                    for(let i=1; i<=5; i++) {
-                        starsHtml += `<i class="fa-solid fa-star ${i <= r.stars ? 'text-amber-400' : 'text-slate-300'} text-sm"></i>`;
-                    }
-                    card.innerHTML = `
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="font-bold text-sm text-[#1c334e]">${r.patientName || 'مريض'}</span>
-                            <div class="flex space-x-1 space-x-reverse">${starsHtml}</div>
-                        </div>
-                        <p class="text-xs text-slate-600 mt-1">${r.comment || 'بدون ملاحظات إضافية'}</p>`;
-                    container.appendChild(card);
-                });
-            });
-        }
-
-        function switchDoctorTab(tabName) {
-            const sections = ['docSectionChat', 'docSectionReports', 'docSectionRatings', 'docSectionRequests', 'docSectionPeakHours'];
-            sections.forEach(sec => document.getElementById(sec).classList.add('hidden'));
-
-            const btnInactive = "px-4 py-2 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center shrink-0";
-            const btnActive = "px-4 py-2 text-sm font-bold border-b-2 border-[#1c334e] text-[#1c334e] transition flex items-center shrink-0";
-
-            ['docTabChatBtn', 'docTabReportsBtn', 'docTabRatingsBtn', 'docTabRequestsBtn', 'docTabPeakBtn'].forEach(b => document.getElementById(b).className = btnInactive);
-
-            if(tabName === 'chat') {
-                document.getElementById('docSectionChat').classList.remove('hidden');
-                document.getElementById('docTabChatBtn').className = btnActive;
-            } else if(tabName === 'reports') {
-                document.getElementById('docSectionReports').classList.remove('hidden');
-                document.getElementById('docTabReportsBtn').className = btnActive;
-            } else if(tabName === 'ratings') {
-                document.getElementById('docSectionRatings').classList.remove('hidden');
-                document.getElementById('docTabRatingsBtn').className = btnActive;
-            } else if(tabName === 'requests') {
-                document.getElementById('docSectionRequests').classList.remove('hidden');
-                document.getElementById('docTabRequestsBtn').className = btnActive;
-            } else if(tabName === 'peakHours') {
-                document.getElementById('docSectionPeakHours').classList.remove('hidden');
-                document.getElementById('docTabPeakBtn').className = btnActive;
-            }
-        }
-
-        /* --- وظائف الشات والـ Firebase --- */
         function sendMessageText(text) {
             if(!text.trim()) return;
             database.ref('chats/' + activeRoomId).push({
@@ -523,40 +343,21 @@
             input.value = '';
         }
 
-        // الاستماع المباشر وتحديث الشاشتين عند وصول رسالة جديدة أو مسح الشات
         function listenForMessages() {
-            const chatRef = database.ref('chats/' + activeRoomId);
-            chatRef.on('value', (snapshot) => {
+            database.ref('chats/' + activeRoomId).on('value', (snapshot) => {
                 const docContainer = document.getElementById('chatMessagesContainer');
                 const patContainer = document.getElementById('patChatMessagesContainer');
-                
-                if(!docContainer || !patContainer) return;
+                docContainer.innerHTML = ''; patContainer.innerHTML = '';
 
-                docContainer.innerHTML = '';
-                patContainer.innerHTML = '';
+                if(!snapshot.exists()) return;
 
-                if(!snapshot.exists()) {
-                    // تفريغ المحادثات تماماً عند الشاشتين إذا مسحت قاعدة البيانات
-                    return;
-                }
-
-                snapshot.forEach((childSnapshot) => {
-                    const msg = childSnapshot.val();
+                snapshot.forEach((child) => {
+                    const msg = child.val();
                     const isDoctor = msg.sender === 'doctor';
-
-                    const docBubble = document.createElement('div');
-                    docBubble.className = `flex ${isDoctor ? 'justify-start' : 'justify-end'}`;
-                    docBubble.innerHTML = `<div class="max-w-[75%] px-4 py-2.5 rounded-2xl text-sm font-semibold shadow-sm ${isDoctor ? 'bg-[#1c334e] text-white rounded-tr-none' : 'bg-white text-slate-800 rounded-tl-none'}">${msg.text.replace(/\n/g, '<br>')}</div>`;
-                    docContainer.appendChild(docBubble);
-
-                    const patBubble = document.createElement('div');
-                    patBubble.className = `flex ${!isDoctor ? 'justify-start' : 'justify-end'}`;
-                    patBubble.innerHTML = `<div class="max-w-[75%] px-4 py-2.5 rounded-2xl text-sm font-semibold shadow-sm ${!isDoctor ? 'bg-[#1c334e] text-white rounded-tr-none' : 'bg-white text-slate-800 rounded-tl-none'}">${msg.text.replace(/\n/g, '<br>')}</div>`;
-                    patContainer.appendChild(patBubble);
+                    const html = `<div class="flex ${isDoctor ? 'justify-start' : 'justify-end'}"><div class="max-w-[80%] px-3 py-1.5 rounded-xl text-xs font-semibold ${isDoctor ? 'bg-[#1c334e] text-white' : 'bg-white text-slate-800'}">${msg.text}</div></div>`;
+                    docContainer.innerHTML += html;
+                    patContainer.innerHTML += html;
                 });
-
-                docContainer.scrollTop = docContainer.scrollHeight;
-                patContainer.scrollTop = patContainer.scrollHeight;
             });
         }
 
@@ -565,136 +366,58 @@
             const meds = document.getElementById('reportMedicines').value;
             const inst = document.getElementById('reportInstructions').value;
 
-            if(!diag || !meds) {
-                alert('يرجى كتابة التشخيص والأدوية أولاً');
-                return;
-            }
-
             database.ref('medical_instructions/' + activeRoomId).set({
-                diagnosis: diag,
-                medicines: meds,
-                instructions: inst || 'لا يوجد إرشادات خاصة.',
-                date: new Date().toLocaleDateString('ar-EG')
+                diagnosis: diag, medicines: meds, instructions: inst, date: new Date().toLocaleDateString('ar-EG')
             });
-
-            const reportText = `📋 **تقرير طبي وإرشادات جديدة:**\n• التشخيص: ${diag}\n• الأدوية: ${meds}\n• الإرشادات: ${inst || 'متابعة حسب التعليمات'}`;
-            sendMessageText(reportText);
-            alert('تم حفظ وإرسال التقرير والإرشادات بنجاح!');
-        }
-
-        /* --- وظائف المريض --- */
-        function renderDoctorsCards() {
-            const container = document.getElementById('doctorsCardsContainer');
-            if(!container) return;
-            container.innerHTML = '';
-            doctorsList.forEach(doc => {
-                const card = document.createElement('div');
-                card.className = "bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between";
-                card.innerHTML = `
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <h4 class="font-bold text-[#1c334e] text-base">${doc.name}</h4>
-                                <p class="text-xs text-slate-500 font-semibold mt-0.5">${doc.spec}</p>
-                            </div>
-                            <div class="bg-amber-50 border border-amber-200 text-amber-700 px-2.5 py-1 rounded-full text-xs font-bold flex items-center">
-                                <i class="fa-solid fa-star text-amber-400 ml-1"></i> ${doc.rating} (${doc.reviewsCount})
-                            </div>
-                        </div>
-                        <p class="text-xs text-slate-600 mb-4"><i class="fa-solid fa-hospital ml-1 text-slate-400"></i>${doc.hospital}</p>
-                    </div>
-                    <button onclick="selectDoctorAndStart('${doc.name}')" class="w-full bg-[#1c334e] text-white py-2 rounded-xl text-xs font-bold hover:bg-[#15273c] transition">اختيار وبدء الاستشارة</button>`;
-                container.appendChild(card);
-            });
-        }
-
-        function selectDoctorAndStart(docName) {
-            alert(`تم اختيار ${docName}، يمكنك الآن البدء في المحادثة مباشرة.`);
-            switchPatientTab('chat');
+            sendMessageText(`📋 **تقرير طبي:**\nالتشخيص: ${diag}\nالعلاج: ${meds}`);
+            alert('تم الإرسال بنجاح!');
         }
 
         function listenForPatientInstructions() {
             database.ref('medical_instructions/' + activeRoomId).on('value', (snapshot) => {
                 const display = document.getElementById('patientInstructionsDisplay');
-                if(!display) return;
                 if(snapshot.exists()) {
-                    const data = snapshot.val();
-                    display.innerHTML = `
-                        <div class="border-b pb-3 mb-3 flex justify-between items-center">
-                            <span class="text-xs font-bold text-slate-400">تاريخ التقرير: ${data.date}</span>
-                            <span class="bg-emerald-100 text-emerald-700 text-xs px-2.5 py-1 rounded-full font-bold">تقرير معتمد</span>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-[#1c334e] text-sm mb-1"><i class="fa-solid fa-stethoscope ml-1 text-[#527196]"></i>التشخيص الطبي:</h4>
-                            <p class="text-xs text-slate-700 bg-slate-50 p-2.5 rounded-lg border border-slate-200">${data.diagnosis}</p>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-[#1c334e] text-sm mb-1"><i class="fa-solid fa-pills ml-1 text-emerald-600"></i>الأدوية والعلاج:</h4>
-                            <p class="text-xs text-slate-700 bg-slate-50 p-2.5 rounded-lg border border-slate-200 whitespace-pre-line">${data.medicines}</p>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-[#1c334e] text-sm mb-1"><i class="fa-solid fa-user-nurse ml-1 text-sky-600"></i>تعليمات وإرشادات المتابعة:</h4>
-                            <p class="text-xs text-slate-700 bg-slate-50 p-2.5 rounded-lg border border-slate-200 whitespace-pre-line">${data.instructions}</p>
-                        </div>`;
+                    const d = snapshot.val();
+                    display.innerHTML = `<h4 class="font-bold text-sm text-[#1c334e]">التشخيص: ${d.diagnosis}</h4><p class="text-xs text-slate-600 mt-2">الأدويـة: ${d.medicines}</p><p class="text-xs text-slate-600 mt-1">الإرشادات: ${d.instructions}</p>`;
                 } else {
-                    display.innerHTML = `<p class="text-slate-500 text-sm">لم يتم إضافة إرشادات طبية لك حتى الآن.</p>`;
+                    display.innerHTML = `<p class="text-xs text-slate-400">لا توجد إرشادات حالياً.</p>`;
                 }
             });
         }
 
-        function setPatientRating(val) {
-            patientRatingVal = val;
-            const stars = document.querySelectorAll('#patientRatingStars button');
-            stars.forEach((star, idx) => {
-                if(idx < val) star.className = "text-3xl text-amber-400 transition";
-                else star.className = "text-3xl text-slate-300 transition";
-            });
-        }
-
+        function setPatientRating(v) { patientRatingVal = v; }
         function submitPatientRating() {
-            if(patientRatingVal === 0) {
-                alert('يرجى اختيار التقييم أولاً');
-                return;
-            }
-            const comment = document.getElementById('patRatingComment').value;
+            if(!patientRatingVal) return alert('اختر النجوم أولاً');
             database.ref('ratings').push({
-                patientName: currentUser ? currentUser.name : 'مريض',
-                stars: patientRatingVal,
-                comment: comment,
-                timestamp: Date.now()
+                patientName: currentUser.name, stars: patientRatingVal, comment: document.getElementById('patRatingComment').value
             });
-            alert('شكراً لك! تم إرسال تقييمك بنجاح وسيظهر للطبيب.');
-            document.getElementById('patRatingComment').value = '';
+            alert('تم إرسال تقييمك!');
         }
 
-        function switchPatientTab(tabName) {
-            const sections = ['patSectionDoctorsList', 'patSectionChat', 'patSectionInstructions', 'patSectionRating', 'patSectionPharmacy', 'patSectionTransport'];
-            sections.forEach(sec => document.getElementById(sec).classList.add('hidden'));
+        function listenForDoctorRatings() {
+            database.ref('ratings').on('value', (snapshot) => {
+                const c = document.getElementById('doctorRatingsList');
+                c.innerHTML = '';
+                if(!snapshot.exists()) return c.innerHTML = '<p class="text-xs text-slate-400">لا توجد تقييمات.</p>';
+                snapshot.forEach(child => {
+                    const r = child.val();
+                    c.innerHTML += `<div class="bg-white p-3 rounded border text-xs"><div class="font-bold text-[#1c334e]">${r.patientName} - ⭐ ${r.stars}</div><p class="text-slate-600 mt-1">${r.comment}</p></div>`;
+                });
+            });
+        }
 
-            const btnInactive = "px-4 py-2 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center shrink-0";
-            const btnActive = "px-4 py-2 text-sm font-bold border-b-2 border-[#1c334e] text-[#1c334e] transition flex items-center shrink-0";
+        function switchDoctorTab(t) {
+            ['docSectionChat', 'docSectionReports', 'docSectionRatings'].forEach(s => document.getElementById(s).classList.add('hidden'));
+            if(t === 'chat') document.getElementById('docSectionChat').classList.remove('hidden');
+            if(t === 'reports') document.getElementById('docSectionReports').classList.remove('hidden');
+            if(t === 'ratings') document.getElementById('docSectionRatings').classList.remove('hidden');
+        }
 
-            ['patTabDocsBtn', 'patTabChatBtn', 'patTabInstBtn', 'patTabRatingBtn', 'patTabPharmBtn', 'patTabTransBtn'].forEach(b => document.getElementById(b).className = btnInactive);
-
-            if(tabName === 'doctorsList') {
-                document.getElementById('patSectionDoctorsList').classList.remove('hidden');
-                document.getElementById('patTabDocsBtn').className = btnActive;
-            } else if(tabName === 'chat') {
-                document.getElementById('patSectionChat').classList.remove('hidden');
-                document.getElementById('patTabChatBtn').className = btnActive;
-            } else if(tabName === 'instructions') {
-                document.getElementById('patSectionInstructions').classList.remove('hidden');
-                document.getElementById('patTabInstBtn').className = btnActive;
-            } else if(tabName === 'rating') {
-                document.getElementById('patSectionRating').classList.remove('hidden');
-                document.getElementById('patTabRatingBtn').className = btnActive;
-            } else if(tabName === 'pharmacy') {
-                document.getElementById('patSectionPharmacy').classList.remove('hidden');
-                document.getElementById('patTabPharmBtn').className = btnActive;
-            } else if(tabName === 'transport') {
-                document.getElementById('patSectionTransport').classList.remove('hidden');
-                document.getElementById('patTabTransBtn').className = btnActive;
-            }
+        function switchPatientTab(t) {
+            ['patSectionChat', 'patSectionInstructions', 'patSectionRating'].forEach(s => document.getElementById(s).classList.add('hidden'));
+            if(t === 'chat') document.getElementById('patSectionChat').classList.remove('hidden');
+            if(t === 'instructions') document.getElementById('patSectionInstructions').classList.remove('hidden');
+            if(t === 'rating') document.getElementById('patSectionRating').classList.remove('hidden');
         }
     </script>
 </body>
