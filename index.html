@@ -21,11 +21,11 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             color: white;
-            font-size: 22px;
+            font-size: 20px;
             transition: all 0.3s ease;
         }
         .social-btn:hover { transform: translateY(-4px); }
@@ -77,7 +77,7 @@
             <button onclick="openAuthModal('patient')" class="bg-[#2a486c] text-white px-8 py-3 rounded-xl font-bold hover:bg-[#1c334e] transition shadow-md"><i class="fa-solid fa-hospital-user ml-2"></i>دخول بوابة المريض</button>
         </div>
 
-        <!-- قسم السوشيال ميديا -->
+        <!-- قسم السوشيال ميديا في الرئيسية -->
         <div class="border-t border-slate-200 pt-6 mt-8 text-center">
             <h3 class="font-bold text-[#1c334e] mb-4">تابعنا على منصات التواصل الاجتماعي</h3>
             <div class="flex justify-center gap-4">
@@ -88,10 +88,10 @@
         </div>
     </div>
 
-    <!-- AUTH MODAL (نافذة التسجيل) -->
+    <!-- AUTH MODAL (نافذة التسجيل وبها السوشيال ميديا) -->
     <div id="authModal" class="fixed inset-0 bg-[#1c334e]/70 flex items-center justify-center p-4 z-50 hidden overflow-y-auto">
-        <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-lg my-auto relative">
-            <button onclick="closeAuthModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+        <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-lg my-auto relative border border-slate-200">
+            <button onclick="closeAuthModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-2xl font-bold">&times;</button>
             
             <div class="text-center mb-6">
                 <i class="fa-solid fa-hospital-user text-4xl text-[#1c334e] mb-2"></i>
@@ -99,8 +99,8 @@
             </div>
             
             <div class="flex space-x-2 space-x-reverse mb-6">
-                <button onclick="toggleAuthRole('doctor')" id="btnDocTab" class="flex-1 py-2.5 rounded-xl bg-[#1c334e] text-white font-bold transition">طبيب</button>
-                <button onclick="toggleAuthRole('patient')" id="btnPatTab" class="flex-1 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-bold transition">مريض</button>
+                <button onclick="toggleAuthRole('doctor')" id="btnDocTab" class="flex-1 py-2.5 rounded-xl bg-[#1c334e] text-white font-bold transition">تسجيل طبيب</button>
+                <button onclick="toggleAuthRole('patient')" id="btnPatTab" class="flex-1 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-bold transition">تسجيل مريض</button>
             </div>
 
             <!-- Doctor Form -->
@@ -127,7 +127,7 @@
                         <option>مستشفى التخصصي</option>
                     </select>
                 </div>
-                <button type="submit" class="w-full bg-[#1c334e] text-white py-3 rounded-xl font-bold hover:bg-[#15273c] transition">دخول لوحة التحكم</button>
+                <button type="submit" class="w-full bg-[#1c334e] text-white py-3 rounded-xl font-bold hover:bg-[#15273c] transition shadow">دخول لوحة تحكم الطبيب</button>
             </form>
 
             <!-- Patient Form -->
@@ -144,14 +144,23 @@
                     <label class="block text-sm font-semibold mb-1 text-slate-700">الأعراض الحالية:</label>
                     <textarea id="patInitialSymptoms" rows="2" required class="w-full border p-2.5 rounded-lg text-sm" placeholder="صف ما تشعر به..."></textarea>
                 </div>
-                <button type="submit" class="w-full bg-[#1c334e] text-white py-3 rounded-xl font-bold hover:bg-[#15273c] transition">بدء الاستشارة</button>
+                <button type="submit" class="w-full bg-[#1c334e] text-white py-3 rounded-xl font-bold hover:bg-[#15273c] transition shadow">بدء الاستشارة ومتابعة العلاج</button>
             </form>
+
+            <!-- قسم السوشيال ميديا داخل شاشة التسجيل -->
+            <div class="border-t border-slate-200 pt-4 mt-6 text-center">
+                <p class="text-xs font-bold text-slate-500 mb-3">تواصل معنا عبر منصاتنا الرسمية:</p>
+                <div class="flex justify-center gap-3">
+                    <a href="https://www.facebook.com/share/1Aac74KSSM/?mibextid=wwXIfr" target="_blank" class="social-btn facebook" title="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@healthfix89?_r=1&_t=ZS-98nOqlDuz3Z" target="_blank" class="social-btn tiktok" title="تيك توك"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/heal.thfix1?igsh=MWRpYWptdjJzajZjZA==" target="_blank" class="social-btn instagram" title="إنستجرام"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- SECTION 2: SYSTEM WORKSPACE (نظام الطبيب والمريض) -->
+    <!-- SECTION 2: SYSTEM WORKSPACE -->
     <div id="appSystemSection" class="flex-1 flex flex-col hidden h-screen overflow-hidden">
-        <!-- Top App User Bar -->
         <div class="bg-[#15273c] text-white px-6 py-2 flex justify-between items-center text-xs shrink-0">
             <div id="userWelcome" class="font-semibold"></div>
             <div class="flex items-center space-x-3 space-x-reverse">
@@ -185,7 +194,7 @@
                         <input type="text" id="reportDiagnosis" class="w-full border p-2 rounded text-sm" placeholder="التشخيص...">
                         <textarea id="reportMedicines" rows="2" class="w-full border p-2 rounded text-sm" placeholder="الأدوية والعلاج..."></textarea>
                         <textarea id="reportInstructions" rows="2" class="w-full border p-2 rounded text-sm" placeholder="الإرشادات..."></textarea>
-                        <button onclick="saveMedicalReport()" class="bg-[#1c334e] text-white px-4 py-2 rounded-lg text-sm font-bold">إرسال التتقرير</button>
+                        <button onclick="saveMedicalReport()" class="bg-[#1c334e] text-white px-4 py-2 rounded-lg text-sm font-bold">إرسال التقرير</button>
                     </div>
                 </div>
                 <div id="docSectionRatings" class="flex-1 p-6 overflow-y-auto hidden">
